@@ -8,13 +8,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import total.service.GreetService;
 
 @Controller
-public class IndexController {
+@RequestMapping
+public class NavController {
 	@Autowired
 	GreetService greetService;
 	
-	@RequestMapping({"/index","/"})
-	public String indexHandle(Model model ) {
+	@RequestMapping("/join")
+	public String joinHandle(Model model) {
 		model.addAttribute("ment", greetService.make());
-		return "index";
+		return "join";
+	}
+	
+	@RequestMapping("/login")
+	public String loginHandle(Model model) {
+		model.addAttribute("ment", greetService.make());
+		return "login";
 	}
 }
