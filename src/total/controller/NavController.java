@@ -1,5 +1,6 @@
 package total.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -10,7 +11,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.socket.TextMessage;
+import org.springframework.web.socket.WebSocketSession;
 
+import model.WebSocketMap;
 import total.service.GreetService;
 import total.service.NavService;
 
@@ -21,11 +25,13 @@ public class NavController {
 	NavService navservice;
 	@Autowired
 	GreetService greetService;
-
+	@Autowired
+	WebSocketMap sessions;
+	
 	@RequestMapping(method = RequestMethod.GET)
 	public String joinGetHandle(Model model) {
 		model.addAttribute("ment", greetService.make());
-		return "nav";
+		return "join";
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
@@ -34,6 +40,12 @@ public class NavController {
 			boolean rst =navservice.insert(param);
 			if (rst) {
 				session.setAttribute("logon", param.get("id"));
+				List<WebSocketSession> s = sessions.get(session.getId());
+				for(WebSocketSession ws : s) {
+					ws.sendMessage(new TextMessage(""));
+				}
+				
+				
 				return "redirect:/";
 			}
 			throw new Exception();
