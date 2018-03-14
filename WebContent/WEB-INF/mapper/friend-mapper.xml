@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="friend">
+	<insert id="DBinsert">
+	insert into friend values(#{no},#{one},#{other},#{status},sysdate)
+	</insert>
+	<select id="request" resultType="hashmap">
+	select * from friend where other=? and status=0
+	</select>
+	<update id="add">
+	update friend set status = 1 where other = #{other}
+	</update>
+	<delete id="delete">
+	delete from friend where other = #{other}	
+	</delete>
+</mapper>
+
