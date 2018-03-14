@@ -22,10 +22,18 @@
 		</div>
 		<hr />
 		<div align="right" style="padding-right: 20px;">
+		<c:choose>
+			<c:when test="${empty sessionScope.logon }">
 			<a href="/login"><span>Sign in</span></a> <span>or</span> <a
 				href="/join"><span>Sign up</span></a>
+			</c:when>
+			<c:otherwise>
+				<b>${logon }</b>,logon
+			</c:otherwise>
+		</c:choose>
 		</div>
 		<hr />
 	</div>
 </body>
 </html>
+
