@@ -16,7 +16,7 @@ import total.service.FindService;
 @Controller
 public class LogInOutController {
 	@Autowired
-	FindService loginOutService;
+	FindService findService;
 	
 	
 	@RequestMapping(path="/login", method=RequestMethod.GET)
@@ -27,7 +27,7 @@ public class LogInOutController {
 	@RequestMapping(path="/session", method=RequestMethod.POST)
 	public String loginPostHandle(@RequestParam Map<String, String> param, HttpSession session, Model model) {
 		
-		Map rst = loginOutService.findByIdMailAndPass(param);
+		Map rst = findService.findByIdMailAndPass(param);
 		if(rst != null) {
 			session.setAttribute("logon", rst.get("ID"));
 			return "redirect:/";

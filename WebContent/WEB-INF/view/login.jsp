@@ -28,7 +28,9 @@
 			<div>
 				<h1>Sign in to SPRING</h1>
 			</div>
+			<c:if test="${!empty err }">
 			<div class="alert alert-danger">${err }</div>
+			</c:if>
 			<div class="">
 				<label for="login_field" > Username or email address </label> <input
 					type="text" name="idmail" id="login_field" class="form-control"
