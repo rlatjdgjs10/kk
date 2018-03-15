@@ -30,10 +30,12 @@ public class LogInOutController {
 		Map rst = findService.findByIdMailAndPass(param);
 		if(rst != null) {
 			session.setAttribute("logon", rst.get("ID"));
-			return "redirect:/";
+			return "index";
 		} else {
 			model.addAttribute("err", "logon failed");
-			return "login";
+			model.addAttribute("main", "/login.jsp");
+			
+			return "t_el";
 		}
 	}
 }
